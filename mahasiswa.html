@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Mahasiswa - Absensi Sahabat Surga</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="mahasiswa-page">
+
+        <div class="mahasiswa-card">
+
+            <div class="book-animation"></div>
+
+            <h1>
+                Assalamu'alaikum
+            </h1>
+
+            <p class="subtitle">
+                Selamat datang di Absensi Sahabat Surga
+            </p>
+
+
+            <!-- ==============================
+                 DATA MAHASISWA
+            =============================== -->
+
+            <div class="data-mahasiswa">
+
+                <h2 id="namaMahasiswa">
+                    Memuat data...
+                </h2>
+
+                <p>
+                    NIM:
+                    <strong id="nimMahasiswa">-</strong>
+                </p>
+
+                <p>
+                    Kelas:
+                    <strong id="kelasMahasiswa">-</strong>
+                </p>
+
+            </div>
+
+
+            <!-- ==============================
+                 ABSENSI HARI INI
+            =============================== -->
+
+            <div class="absensi-section">
+
+                <h2>
+                    Absensi Hari Ini
+                </h2>
+
+                <p id="statusAbsensi">
+                    Silahkan pilih status kehadiran Anda.
+                </p>
+
+
+                <!-- ==============================
+                     PESAN SUDAH ABSEN
+                =============================== -->
+
+                <div
+                    id="pesanSudahAbsen"
+                    style="display: none;">
+                </div>
+
+
+                <!-- ==============================
+                     PILIH STATUS
+                =============================== -->
+
+                <div class="status-buttons">
+
+                    <button
+                        class="status-hadir"
+                        onclick="pilihStatus('Hadir')">
+
+                        Hadir
+
+                    </button>
+
+
+                    <button
+                        class="status-sakit"
+                        onclick="pilihStatus('Sakit')">
+
+                        Sakit
+
+                    </button>
+
+
+                    <button
+                        class="status-izin"
+                        onclick="pilihStatus('Izin')">
+
+                        Izin
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==============================
+                     VERIFIKASI LOKASI
+                     MUNCUL SETELAH PILIH HADIR
+                =============================== -->
+
+                <div
+                    id="lokasiBox"
+                    style="display: none; margin-top: 25px;">
+
+                    <h3>
+                        📍 Verifikasi Lokasi
+                    </h3>
+
+                    <p id="statusLokasi">
+                        Lokasi belum diverifikasi.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="btnCekLokasi"
+                        class="btn-masuk"
+                        onclick="verifikasiLokasi()">
+
+                        📍 Cek Lokasi Kampus
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==============================
+                     VERIFIKASI WAJAH
+                     MUNCUL SETELAH LOKASI VALID
+                =============================== -->
+
+                <div
+                    id="kameraBox"
+                    style="display: none; margin-top: 25px;">
+
+                    <h3>
+                        👤 Verifikasi Wajah
+                    </h3>
+
+                    <p>
+                        Arahkan wajah Anda ke kamera.
+                    </p>
+
+                    <video
+                        id="kamera"
+                        autoplay
+                        playsinline>
+                    </video>
+
+
+                    <button
+                        type="button"
+                        id="btnBukaKamera"
+                        class="btn-masuk"
+                        onclick="bukaKamera()">
+
+                        Buka Kamera
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnTutupKamera"
+                        class="btn-kembali"
+                        onclick="tutupKamera()"
+                        style="display: none;">
+
+                        Tutup Kamera
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==============================
+                     KETERANGAN / ALASAN
+                     UNTUK SAKIT / IZIN
+                =============================== -->
+
+                <div
+                    id="keteranganBox"
+                    style="display: none; margin-top: 25px;">
+
+                    <label for="keterangan">
+                        Alasan
+                    </label>
+
+                    <textarea
+                        id="keterangan"
+                        placeholder="Tuliskan alasan Anda...">
+                    </textarea>
+
+                </div>
+
+
+                <!-- ==============================
+                     KIRIM ABSENSI
+                =============================== -->
+
+                <button
+                    id="btnKirimAbsensi"
+                    class="btn-masuk"
+                    onclick="kirimAbsensi()"
+                    style="margin-top: 25px;">
+
+                    Kirim Absensi
+
+                </button>
+
+            </div>
+
+
+            <!-- ==============================
+                 KELUAR
+            =============================== -->
+
+            <button
+                class="btn-kembali"
+                onclick="logoutMahasiswa()">
+
+                ← Keluar
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         LIBRARY SUPABASE
+    =============================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <!-- ==============================
+         LIBRARY HUMAN
+    =============================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/human/dist/human.js"></script>
+
+
+    <!-- ==============================
+         FILE PROJECT
+    =============================== -->
+
+    <script src="supabase.js"></script>
+
+    <script src="mahasiswa.js"></script>
+
+</body>
+
+</html>

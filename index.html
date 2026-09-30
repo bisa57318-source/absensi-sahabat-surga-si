@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Absensi Sahabat Surga</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="book-animation"></div>
+
+        <h1>Absensi Sahabat Surga</h1>
+
+        <p class="subtitle">
+            Sistem Absensi Mahasiswa
+        </p>
+
+        <div class="login-buttons" id="menuLogin">
+
+            <button
+                class="btn-primary"
+                onclick="tampilkanLoginMahasiswa()">
+                Login Mahasiswa
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="tampilkanLoginAdmin()">
+                Login Admin Surga
+            </button>
+
+        </div>
+
+        <!-- LOGIN MAHASISWA -->
+
+        <div id="formMahasiswa" class="form-mahasiswa">
+
+            <div class="login-mahasiswa-header">
+
+                <div class="form-icon">
+                    ☪
+                </div>
+
+                <h2>
+                    Login Mahasiswa
+                </h2>
+
+                <p>
+                    Silahkan masukkan NIM Surga Anda ✨
+                </p>
+
+            </div>
+
+            <div class="input-wrapper">
+
+                <span class="input-icon">
+                    ✦
+                </span>
+
+                <input
+                    type="text"
+                    id="inputNIM"
+                    placeholder="Masukkan NIM Surga"
+                    autocomplete="off">
+
+            </div>
+
+            <button
+                class="btn-masuk"
+                onclick="prosesLoginMahasiswa()">
+
+                Masuk ke Surga
+
+            </button>
+
+            <button
+                class="btn-kembali"
+                onclick="kembaliKeMenu()">
+
+                ← Kembali
+
+            </button>
+
+            <p id="pesanLogin"></p>
+
+        </div>
+
+
+        <!-- LOGIN ADMIN SURGA -->
+
+        <div id="formAdmin" class="form-mahasiswa">
+
+            <div class="login-mahasiswa-header">
+
+                <div class="form-icon">
+                    🔐
+                </div>
+
+                <h2>
+                    Login Admin Surga
+                </h2>
+
+                <p>
+                    Silahkan masukkan password admin ✨
+                </p>
+
+            </div>
+
+            <div class="input-wrapper">
+
+                <span class="input-icon">
+                    🔑
+                </span>
+
+                <input
+                    type="password"
+                    id="inputPasswordAdmin"
+                    placeholder="Masukkan Password Admin"
+                    autocomplete="off">
+
+            </div>
+
+            <button
+                class="btn-masuk"
+                onclick="prosesLoginAdmin()">
+
+                Masuk sebagai Admin
+
+            </button>
+
+            <button
+                class="btn-kembali"
+                onclick="kembaliKeMenu()">
+
+                ← Kembali
+
+            </button>
+
+            <p id="pesanLoginAdmin"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="script.js"></script>
+```
+
+</body>
+
+</html>

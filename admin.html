@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Dashboard Admin - Absensi Sahabat Surga</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+    /* ================================
+       DASHBOARD ADMIN
+    ================================= */
+
+    .admin-page {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
+
+    .admin-card {
+        width: 100%;
+        max-width: 850px;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 45px 45px 35px;
+        box-sizing: border-box;
+        box-shadow: 0 18px 45px rgba(23, 107, 58, 0.15);
+        text-align: center;
+    }
+
+    .admin-card h1 {
+        margin-bottom: 8px;
+    }
+
+    .admin-welcome {
+        margin: 30px auto 35px;
+        max-width: 700px;
+        padding: 25px 30px;
+        border-radius: 20px;
+        background: linear-gradient(
+            135deg,
+            rgba(23, 107, 58, 0.08),
+            rgba(184, 145, 36, 0.10)
+        );
+        border: 1px solid rgba(184, 145, 36, 0.20);
+    }
+
+    .admin-welcome h2 {
+        margin: 0 0 10px;
+        color: #176b3a;
+    }
+
+    .admin-welcome p {
+        margin: 0;
+        line-height: 1.7;
+        color: #666;
+    }
+
+    .admin-info {
+        margin-bottom: 30px;
+    }
+
+    .admin-info h3 {
+        margin-bottom: 8px;
+        color: #176b3a;
+    }
+
+    .admin-info p {
+        margin: 0 auto;
+        max-width: 650px;
+        color: #777;
+        line-height: 1.7;
+    }
+
+    /* MENU ADMIN */
+
+    .admin-menu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+        margin: 30px auto 35px;
+        max-width: 700px;
+    }
+
+    .admin-menu-card {
+        border: none;
+        border-radius: 22px;
+        padding: 30px 25px;
+        background: #ffffff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(23, 107, 58, 0.10);
+        cursor: pointer;
+        transition: all 0.25s ease;
+        text-align: center;
+    }
+
+    .admin-menu-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(23, 107, 58, 0.16);
+        border-color: rgba(184, 145, 36, 0.45);
+    }
+
+    .admin-menu-icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 18px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        background: rgba(23, 107, 58, 0.09);
+    }
+
+    .admin-menu-card h3 {
+        margin: 0 0 10px;
+        color: #176b3a;
+        font-size: 20px;
+    }
+
+    .admin-menu-card p {
+        margin: 0;
+        color: #777;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    .admin-menu-card .admin-card-label {
+        display: inline-block;
+        margin-top: 18px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        background: rgba(184, 145, 36, 0.12);
+        color: #96751d;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* FOOTER ADMIN */
+
+    .admin-footer {
+        margin-top: 10px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .admin-footer p {
+        margin: 0 0 18px;
+        color: #888;
+        font-size: 13px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 650px) {
+
+        .admin-page {
+            padding: 20px 15px;
+        }
+
+        .admin-card {
+            padding: 30px 20px 25px;
+            border-radius: 22px;
+        }
+
+        .admin-menu {
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .admin-menu-card {
+            padding: 25px 20px;
+        }
+
+        .admin-welcome {
+            padding: 22px 18px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="admin-page">
+
+    <div class="admin-card">
+
+        <div class="book-animation"></div>
+
+        <h1>Dashboard Admin</h1>
+
+        <p class="subtitle">
+            Absensi Sahabat Surga
+        </p>
+
+        <!-- SAMBUTAN ADMIN -->
+
+        <div class="admin-welcome">
+
+            <h2>
+                Assalamu'alaikum, Admin 👋
+            </h2>
+
+            <p>
+                Selamat datang di ruang pengelolaan
+                <strong>Absensi Sahabat Surga</strong>.
+                Di sini admin dapat mengelola data mahasiswa
+                serta memantau dan melihat rekap kehadiran
+                mahasiswa.
+            </p>
+
+        </div>
+
+        <!-- PENJELASAN ADMIN -->
+
+        <div class="admin-info">
+
+            <h3>
+                ✨ Pusat Administrasi
+            </h3>
+
+            <p>
+                Gunakan menu di bawah ini untuk mengelola
+                informasi mahasiswa dan memantau aktivitas
+                absensi secara teratur.
+            </p>
+
+        </div>
+
+        <!-- MENU ADMIN -->
+
+        <div class="admin-menu">
+
+            <!-- DATA MAHASISWA -->
+
+            <button
+                class="admin-menu-card"
+                type="button"
+                onclick="window.location.href='data-mahasiswa.html'">
+
+                <div class="admin-menu-icon">
+                    👨‍🎓
+                </div>
+
+                <h3>
+                    Data Mahasiswa
+                </h3>
+
+                <p>
+                    Melihat dan mengelola data mahasiswa
+                    yang terdaftar dalam sistem absensi.
+                </p>
+
+                <span class="admin-card-label">
+                    Kelola Mahasiswa
+                </span>
+
+            </button>
+
+            <!-- REKAP ABSENSI -->
+
+            <button
+                class="admin-menu-card"
+                type="button"
+                onclick="window.location.href='rekap-absensi.html'">
+
+                <div class="admin-menu-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Rekap Absensi
+                </h3>
+
+                <p>
+                    Melihat riwayat dan rekap kehadiran
+                    mahasiswa berdasarkan data absensi.
+                </p>
+
+                <span class="admin-card-label">
+                    Lihat Rekap
+                </span>
+
+            </button>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="admin-footer">
+
+            <p>
+                🌿 Kelola dengan aman, tertib, dan penuh amanah.
+            </p>
+
+            <button
+                class="btn-kembali"
+                onclick="window.location.href='index.html'">
+
+                ← Kembali ke Login
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</body>
+
+</html>
