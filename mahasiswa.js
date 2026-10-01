@@ -857,22 +857,45 @@ async function bukaKamera() {
     try {
 
         streamKamera =
-            await navigator.mediaDevices.getUserMedia({
+    await navigator.mediaDevices.getUserMedia({
 
-                video: {
-                    facingMode: "user"
-                },
+        video: {
+            facingMode: {
+                ideal: "user"
+            },
 
-                audio: false
-            });
+            width: {
+                ideal: 480
+            },
+
+            height: {
+                ideal: 640
+            },
+
+            aspectRatio: {
+                ideal: 3 / 4
+            }
+        },
+
+        audio: false
+    });
 
 
         video.srcObject =
             streamKamera;
 
 
-        video.style.transform =
-            "none";
+       video.style.setProperty(
+    "transform",
+    "scaleX(-1)",
+    "important"
+);
+
+video.style.setProperty(
+    "-webkit-transform",
+    "scaleX(-1)",
+    "important"
+);
 
 
         console.log(
@@ -1157,8 +1180,40 @@ async function verifikasiWajah() {
             );
 
 
-        const hasilKamera =
-            await humanInstance.detect(video);
+        const canvasKamera =
+    document.createElement("canvas");
+
+canvasKamera.width =
+    video.videoWidth;
+
+canvasKamera.height =
+    video.videoHeight;
+
+const ctxKamera =
+    canvasKamera.getContext("2d");
+
+// Ambil frame asli kamera TANPA mirror
+ctxKamera.save();
+
+ctxKamera.translate(
+    canvasKamera.width,
+    0
+);
+
+ctxKamera.scale(-1, 1);
+
+ctxKamera.drawImage(
+    video,
+    0,
+    0,
+    canvasKamera.width,
+    canvasKamera.height
+);
+
+ctxKamera.restore();
+
+const hasilKamera =
+    await humanInstance.detect(canvasKamera);
 
 
         console.log(
