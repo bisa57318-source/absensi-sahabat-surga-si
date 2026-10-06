@@ -512,3 +512,293 @@ inputPencarianAbsensi.addEventListener(
 ========================================= */
 
 ambilDataAbsensi();
+/* =========================================
+   EXPORT REKAP EXCEL
+========================================= */
+
+function exportExcel() {
+
+    const tanggal =
+        filterTanggal.value;
+
+    const status =
+        filterStatus.value;
+
+    const kataKunci =
+        inputPencarianAbsensi.value
+            .trim()
+            .toLowerCase();
+
+
+    const dataExcel =
+        semuaAbsensi.filter(
+            function (absensi) {
+
+                const mahasiswa =
+                    absensi.mahasiswa;
+
+
+                const cocokTanggal =
+                    tanggal === "" ||
+                    absensi.tanggal === tanggal;
+
+
+                const cocokStatus =
+                    status === "" ||
+                    absensi.status === status;
+
+
+                const cocokPencarian =
+                    kataKunci === "" ||
+                    (
+                        mahasiswa &&
+                        (
+                            mahasiswa.nim
+                                .toLowerCase()
+                                .includes(kataKunci)
+
+                            ||
+
+                            mahasiswa.nama
+                                .toLowerCase()
+                                .includes(kataKunci)
+                        )
+                    );
+
+
+                return (
+                    cocokTanggal &&
+                    cocokStatus &&
+                    cocokPencarian
+                );
+
+            }
+        );
+
+
+    if (dataExcel.length === 0) {
+
+        alert(
+            "Tidak ada data absensi yang dapat diekspor."
+        );
+
+        return;
+    }
+
+
+    let tabelExcel = `
+        <table border="1">
+
+            <tr>
+
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+                <th>Jarak (meter)</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Wajah</th>
+
+            </tr>
+    `;
+
+
+    dataExcel.forEach(
+        function (absensi, index) {
+
+            const mahasiswa =
+                absensi.mahasiswa;
+
+
+            const nim =
+                mahasiswa?.nim || "-";
+
+
+            const nama =
+                mahasiswa?.nama || "-";
+
+
+            const kelas =
+                mahasiswa?.kelas || "-";
+
+
+            let jam = "-";
+
+
+            if (absensi.jam) {
+
+                jam =
+                    new Date(
+                        absensi.jam
+                    ).toLocaleTimeString(
+                        "id-ID",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+            }
+
+
+            const jarak =
+                absensi.jarak_meter !== null &&
+                absensi.jarak_meter !== undefined
+                    ? Math.round(
+                        Number(
+                            absensi.jarak_meter
+                        )
+                    )
+                    : "-";
+
+
+            const latitude =
+                absensi.latitude ?? "-";
+
+
+            const longitude =
+                absensi.longitude ?? "-";
+
+
+            const wajah =
+                absensi.face_verified === true
+                    ? "Terverifikasi"
+                    : "Belum";
+
+
+            tabelExcel += `
+
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${absensi.tanggal || "-"}</td>
+
+                    <td>${jam}</td>
+
+                    <td>${nim}</td>
+
+                    <td>${nama}</td>
+
+                    <td>${kelas}</td>
+
+                    <td>${absensi.status || "-"}</td>
+
+                    <td>${absensi.keterangan || "-"}</td>
+
+                    <td>${jarak}</td>
+
+                    <td>${latitude}</td>
+
+                    <td>${longitude}</td>
+
+                    <td>${wajah}</td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    tabelExcel += `
+        </table>
+    `;
+
+
+    const blob =
+        new Blob(
+            [
+                `
+                <html>
+
+                <head>
+
+                    <meta charset="UTF-8">
+
+                </head>
+
+                <body>
+
+                    <h2>
+                        Rekap Absensi Mahasiswa
+                    </h2>
+
+                    <p>
+                        Sistem Absensi Sahabat Surga
+                    </p>
+
+                    ${tabelExcel}
+
+                </body>
+
+                </html>
+                `
+            ],
+            {
+                type:
+                    "application/vnd.ms-excel"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+
+    let namaFile =
+        "Rekap-Absensi";
+
+
+    if (tanggal !== "") {
+
+        namaFile +=
+            "-" + tanggal;
+
+    }
+
+
+    if (status !== "") {
+
+        namaFile +=
+            "-" + status;
+
+    }
+
+
+    link.download =
+        namaFile + ".xls";
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+}
