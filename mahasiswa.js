@@ -2,6 +2,45 @@ const dataMahasiswa = JSON.parse(
     localStorage.getItem("mahasiswaLogin")
 );
 
+// ==========================================
+// MEMUAT DAFTAR MATA KULIAH
+// ==========================================
+
+async function muatMataKuliah() {
+    const dropdown = document.getElementById("mataKuliah");
+
+    if (!dropdown) return;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from("mata_kuliah")
+            .select("id, nama_mata_kuliah")
+            .order("id", { ascending: true });
+
+        if (error) throw error;
+
+        dropdown.innerHTML =
+            '<option value="">-- Pilih Mata Kuliah --</option>';
+
+        data.forEach((matkul) => {
+            const option = document.createElement("option");
+
+            option.value = matkul.id;
+            option.textContent = matkul.nama_mata_kuliah;
+
+            dropdown.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("Gagal memuat mata kuliah:", error);
+
+        alert(
+            "Daftar mata kuliah gagal dimuat. " +
+            "Silakan muat ulang halaman."
+        );
+    }
+}
+
 let humanInstance = null;
 let humanSiap = false;
 
@@ -346,6 +385,17 @@ async function verifikasiLokasi() {
 
 async function kirimAbsensi() {
 
+
+    // CEK MATA KULIAH
+    const dropdownMatkul = document.getElementById("mataKuliah");
+    const mataKuliahId = dropdownMatkul?.value;
+
+    if (!mataKuliahId) {
+        alert("Silakan pilih mata kuliah terlebih dahulu.");
+        return;
+    }
+
+
     // --------------------------------------------------
     // CEK STATUS
     // --------------------------------------------------
@@ -388,22 +438,18 @@ async function kirimAbsensi() {
     // CEK APAKAH SUDAH ABSEN HARI INI
     // --------------------------------------------------
 
-    const {
-        data: absensiHariIni,
-        error: errorCekAbsensi
-    } = await supabaseClient
-        .from("absensi")
-        .select("id, status")
-        .eq(
-            "mahasiswa_id",
-            dataMahasiswa.id
-        )
-        .eq(
-            "tanggal",
-            tanggalHariIni
-        )
-        .limit(1)
-        .maybeSingle();
+    
+const {
+    data: absensiHariIni,
+    error: errorCekAbsensi
+} = await supabaseClient
+    .from("absensi")
+    .select("id, status")
+    .eq("mahasiswa_id", dataMahasiswa.id)
+    .eq("mata_kuliah_id", Number(mataKuliahId))
+    .eq("tanggal", tanggalHariIni)
+    .maybeSingle();
+
 
 
     if (errorCekAbsensi) {
@@ -690,6 +736,8 @@ async function kirimAbsensi() {
 
                     mahasiswa_id:
                         dataMahasiswa.id,
+                        
+                    mata_kuliah_id: Number(mataKuliahId),
 
                     tanggal:
                         tanggalHariIni,
@@ -781,6 +829,8 @@ async function kirimAbsensi() {
 
                     mahasiswa_id:
                         dataMahasiswa.id,
+                        
+                    mata_kuliah_id: Number(mataKuliahId),
 
                     tanggal:
                         tanggalHariIni,
@@ -1701,6 +1751,9 @@ function hitungJarakMeter(
 // ======================================================
 // LOGOUT MAHASISWA
 // ======================================================
+
+// Muat mata kuliah saat halaman dibuka
+document.addEventListener("DOMContentLoaded", muatMataKuliah);
 
 function logoutMahasiswa() {
 

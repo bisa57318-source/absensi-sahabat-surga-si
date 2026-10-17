@@ -2,22 +2,17 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <title>Rekap Absensi - Absensi Sahabat Surga</title>
 
-    <title>
-        Rekap Absensi - Absensi Sahabat Surga
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css">
+    <link rel="stylesheet" href="style.css">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
 
         .rekap-page {
             min-height: 100vh;
@@ -26,11 +21,11 @@
 
         .rekap-card {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 35px;
             background: #fffdf8;
             border-radius: 24px;
-            padding: 35px;
             box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
         }
 
@@ -51,31 +46,59 @@
 
         .rekap-toolbar {
             display: flex;
-            gap: 15px;
+            align-items: stretch;
+            gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 25px;
         }
 
         .rekap-toolbar input,
         .rekap-toolbar select {
-            flex: 1;
-            min-width: 200px;
-            padding: 13px 16px;
+            flex: 1 1 190px;
+            min-width: 0;
+            padding: 13px 14px;
             border: 1px solid #ddd;
             border-radius: 12px;
-            font-family: Poppins, sans-serif;
-            background: white;
+            font-family: inherit;
+            background: #fff;
+            color: #333;
+        }
+
+        .rekap-toolbar input:focus,
+        .rekap-toolbar select:focus {
+            outline: none;
+            border-color: #176b3a;
+            box-shadow: 0 0 0 3px rgba(23, 107, 58, 0.1);
+        }
+
+        .btn-excel {
+            flex: 0 0 auto;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 12px;
+            background: #176b3a;
+            color: white;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-excel:hover {
+            background: #10542c;
+            transform: translateY(-1px);
         }
 
         .rekap-summary {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
 
         .summary-box {
-            padding: 20px;
+            padding: 22px 15px;
+            border: 1px solid #eee7d8;
             border-radius: 16px;
             text-align: center;
             background: #f8f5ec;
@@ -84,47 +107,57 @@
         .summary-box h3 {
             margin: 0 0 8px;
             color: #555;
+            font-size: 16px;
         }
 
         .summary-box strong {
-            font-size: 28px;
+            font-size: 30px;
             color: #176b3a;
         }
 
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
+            border: 1px solid #eee;
+            border-radius: 14px;
         }
 
         .rekap-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 900px;
+            min-width: 1100px;
         }
 
         .rekap-table th {
+            padding: 14px;
             background: #176b3a;
             color: white;
-            padding: 14px;
             text-align: left;
             white-space: nowrap;
+            font-size: 13px;
         }
 
         .rekap-table td {
             padding: 13px 14px;
             border-bottom: 1px solid #eee;
-            white-space: nowrap;
+            color: #444;
+            font-size: 13px;
+            vertical-align: middle;
         }
 
         .rekap-table tbody tr:hover {
             background: #faf8f1;
         }
 
+        .rekap-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
         .badge-status {
             display: inline-block;
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
         }
 
@@ -151,8 +184,10 @@
             border-radius: 12px;
             background: white;
             color: #176b3a;
-            font-family: Poppins, sans-serif;
+            font-family: inherit;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .btn-kembali-rekap:hover {
@@ -161,228 +196,152 @@
         }
 
         @media (max-width: 700px) {
+            .rekap-page {
+                padding: 20px 10px;
+            }
 
             .rekap-card {
-                padding: 20px;
+                padding: 20px 15px;
+                border-radius: 18px;
             }
 
             .rekap-summary {
                 grid-template-columns: 1fr;
             }
 
+            .rekap-toolbar {
+                flex-direction: column;
+            }
+
+            .rekap-toolbar input,
+            .rekap-toolbar select,
+            .btn-excel {
+                width: 100%;
+                flex: auto;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-    <div class="rekap-page">
-
-        <div class="rekap-card">
-
+    <main class="rekap-page">
+        <section class="rekap-card">
 
             <div class="book-animation"></div>
 
+            <header class="rekap-header">
+                <h1>Rekap Absensi</h1>
+                <p>Pusat Rekapitulasi Absensi Mahasiswa</p>
+            </header>
 
-            <div class="rekap-header">
-
-                <h1>
-                    Rekap Absensi
-                </h1>
-
-                <p>
-                    Pusat Rekapitulasi Absensi Mahasiswa
-                </p>
-
-            </div>
-
-
+            <!-- FILTER DAN PENCARIAN -->
             <div class="rekap-toolbar">
 
-                <input
-                    type="date"
-                    id="filterTanggal">
-
-                <select id="filterStatus">
-
-                    <option value="">
-                        Semua Status
-                    </option>
-
-                    <option value="Hadir">
-                        Hadir
-                    </option>
-
-                    <option value="Sakit">
-                        Sakit
-                    </option>
-
-                    <option value="Izin">
-                        Izin
-                    </option>
-
+                <select id="filterMataKuliah" aria-label="Filter mata kuliah">
+                    <option value="">Semua Mata Kuliah</option>
                 </select>
 
+                <input
+    type="date"
+    id="filterTanggal"
+    aria-label="Tanggal absensi"
+    title="Pilih tanggal absensi">
+
+                <select id="filterStatus" aria-label="Filter status">
+                    <option value="">Semua Status</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Izin">Izin</option>
+                </select>
 
                 <input
                     type="text"
                     id="inputPencarianAbsensi"
-                    placeholder="Cari NIM atau nama mahasiswa...">
-<button
-    type="button"
-    class="btn-pdf-rekap"
-    onclick="exportExcel()">
+                    placeholder="Cari NIM atau nama mahasiswa..."
+                    aria-label="Cari mahasiswa">
 
-    📊 Export Rekap Excel
-
-</button>
-                    
-            </div>
-
-
-            <div class="rekap-summary">
-
-                <div class="summary-box">
-
-                    <h3>
-                        Hadir
-                    </h3>
-
-                    <strong id="jumlahHadir">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <h3>
-                        Sakit
-                    </h3>
-
-                    <strong id="jumlahSakit">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <h3>
-                        Izin
-                    </h3>
-
-                    <strong id="jumlahIzin">
-                        0
-                    </strong>
-
-                </div>
+                <button
+                    type="button"
+                    id="btnDownloadExcel"
+                    class="btn-excel"
+                    onclick="downloadRekapExcel()">
+                    Download Excel
+                </button>
 
             </div>
 
+            <!-- RINGKASAN ABSENSI -->
+            <section class="rekap-summary">
 
+                <div class="summary-box">
+                    <h3>Jumlah Hadir</h3>
+                    <strong id="jumlahHadir">0</strong>
+                </div>
+
+                <div class="summary-box">
+                    <h3>Jumlah Sakit</h3>
+                    <strong id="jumlahSakit">0</strong>
+                </div>
+
+                <div class="summary-box">
+                    <h3>Jumlah Izin</h3>
+                    <strong id="jumlahIzin">0</strong>
+                </div>
+
+            </section>
+
+            <!-- TABEL REKAP ABSENSI -->
             <div class="table-wrapper">
 
                 <table class="rekap-table">
 
                     <thead>
-
                         <tr>
-
-                            <th>
-                                No
-                            </th>
-
-                            <th>
-                                Tanggal
-                            </th>
-
-                            <th>
-                                Jam
-                            </th>
-
-                            <th>
-                                NIM
-                            </th>
-
-                            <th>
-                                Nama
-                            </th>
-
-                            <th>
-                                Kelas
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Keterangan
-                            </th>
-
-                            <th>
-                                Jarak
-                            </th>
-
-                            <th>
-                                Wajah
-                            </th>
-
+                            <th>No.</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            <th>NIM</th>
+                            <th>Nama Mahasiswa</th>
+                            <th>Kelas</th>
+                            <th>Status</th>
+                            <th>Keterangan</th>
+                            <th>Jarak dan Lokasi</th>
+                            <th>Verifikasi Wajah</th>
                         </tr>
-
                     </thead>
 
-
                     <tbody id="tabelRekapAbsensi">
-
                         <tr>
-
-                            <td
-                                colspan="10"
-                                style="
-                                    text-align:center;
-                                    padding:35px;
-                                ">
-
-                                Data absensi akan dimuat...
-
+                            <td colspan="10" style="text-align:center;padding:30px">
+                                Memuat data absensi...
                             </td>
-
                         </tr>
-
                     </tbody>
 
                 </table>
 
             </div>
 
-
             <button
+                type="button"
                 class="btn-kembali-rekap"
                 onclick="window.location.href='admin.html'">
-
-                ← Kembali ke Dashboard Admin
-
+                Kembali ke Dashboard Admin
             </button>
 
+        </section>
+    </main>
 
-        </div>
-
-    </div>
-
-
+    <!-- KONEKSI SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="supabase.js"></script>
 
+    <!-- LIBRARY DOWNLOAD EXCEL -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- LOGIKA REKAP ABSENSI -->
     <script src="rekap-absensi.js"></script>
 
 </body>
-
 </html>
